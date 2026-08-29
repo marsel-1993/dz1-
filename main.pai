@@ -1,0 +1,111 @@
+from flask import Flask, render_template_string, jsonify
+
+app = Flask(__name__)
+
+# Главная страница (HTML)
+INDEX_HTML = """
+<!DOCTYPE html>
+<html>
+  <head><title>Backend Home</title></head>
+  <body>
+    <h1>Привет, это главная страница бэкенда!</h1>
+    <p>Данные можно получить по адресу: <a href="/data">/data</a></p>
+  </body>
+</html>
+"""
+
+@app.route("/")
+def index():
+    return render_template_string(INDEX_HTML)
+
+@app.route("/data")
+def data():
+    return jsonify({"items": [1, 2, 3], "status": "ok"})
+
+if __name__ == "__main__":
+    app.run(port=5000)
+    from flask import Flask, render_template_string, jsonify
+
+app = Flask(__name__)
+
+INDEX_HTML = """
+<!DOCTYPE html>
+<html>
+  <head><title>Добро пожаловать</title></head>
+  <body>
+    <h1>Привет, это бэкенд!</h1>
+    <p>API доступно по <a href="/api">/api</a>.</p>
+  </body>
+</html>
+"""
+
+@app.route("/")
+def index():
+    return render_template_string(INDEX_HTML)
+
+@app.route("/api")
+def api():
+    return jsonify({"status": "ok", "message": "API работает", "version": "0.1.0"})
+
+if __name__ == "__main__":
+    app.run(port=5000, debug=True)
+from flask import Flask, render_template_string, jsonify
+
+app = Flask(__name__)
+
+INDEX_HTML = """
+<!DOCTYPE html>
+<html>
+  <head><title>Добро пожаловать</title></head>
+  <body style="font-family: system-ui; text-align: center; padding: 2rem;">
+    <h1>✅ Бэкенд запущен</h1>
+    <p>Главная страница: <b>/</b></p>
+    <p>API: <a href="/api"><b>/api</b></a></p>
+  </body>
+</html>
+"""
+
+@app.route("/")
+def index():
+    return render_template_string(INDEX_HTML)
+
+@app.route("/api")
+def api():
+    return jsonify({
+        "status": "ok",
+        "message": "API работает",
+        "version": "0.1.0"
+    })
+
+if __name__ == "__main__":
+    # debug=True полезен при разработке в Visual Studio
+    app.run(port=5000, debug=True)
+    <html>
+  <head><title>Регистрация</title></head>
+  <body style="font-family: system-ui; text-align: center; padding: 2rem;">
+    <h1>Регистрация пользователя</h1>
+    <form id="reg-form">
+      <input type="text" id="username" placeholder="Имя пользователя" required style="padding: 0.5rem; margin: 0.25rem 0;">
+      <br>
+      <input type="password" id="password" placeholder="Пароль" required style="padding: 0.5rem; margin: 0.25rem 0;">
+      <br><br>
+      <button type="submit">Зарегистрироваться</button>
+    </form>
+    <p id="result"></p>
+    <script>
+      document.getElementById('reg-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const res = await fetch('/register', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({username, password})
+        });
+        const data = await res.json();
+        document.getElementById('result').innerText = data.message || data.error;
+      });
+    </script>
+  </body>
+</html>
+"""
