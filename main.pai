@@ -1,0 +1,26 @@
+from flask import Flask, render_template_string, jsonify
+
+app = Flask(__name__)
+
+# Главная страница (HTML)
+INDEX_HTML = """
+<!DOCTYPE html>
+<html>
+  <head><title>Backend Home</title></head>
+  <body>
+    <h1>Привет, это главная страница бэкенда!</h1>
+    <p>Данные можно получить по адресу: <a href="/data">/data</a></p>
+  </body>
+</html>
+"""
+
+@app.route("/")
+def index():
+    return render_template_string(INDEX_HTML)
+
+@app.route("/data")
+def data():
+    return jsonify({"items": [1, 2, 3], "status": "ok"})
+
+if __name__ == "__main__":
+    app.run(port=5000)
